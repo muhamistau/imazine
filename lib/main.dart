@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as http;
 import 'package:imazine/detail.dart';
 import 'dart:convert';
@@ -76,14 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           title: Padding(
                             padding: EdgeInsets.symmetric(vertical: 10.0), 
                             child: Text(
-                              posts[index]["title"]["rendered"],
+                              HtmlUnescape().convert(posts[index]["title"]["rendered"]),
                               style: TextStyle(
                                 color: Colors.grey
                               ),
                             )
                           ),
                           subtitle: Text(
-                            posts[index]["excerpt"]["rendered"].replaceAll(RegExp(r'<[^>]*>'), ''),
+                            HtmlUnescape().convert(posts[index]["excerpt"]["rendered"].replaceAll(RegExp(r'<[^>]*>'), '')),
                             style: TextStyle(
                               color: Colors.white
                             ),
@@ -103,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailScreen(
-                    title: posts[index]["title"]["rendered"],
-                    content: posts[index]["content"]["rendered"].replaceAll(RegExp(r'<[^>]*>'), ''),
+                    title: HtmlUnescape().convert(posts[index]["title"]["rendered"]),
+                    content: HtmlUnescape().convert(posts[index]["excerpt"]["rendered"].replaceAll(RegExp(r'<[^>]*>'), '')),
                     featuredMedia: featuredMedia,
                   )
                 )
