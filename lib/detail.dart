@@ -18,7 +18,7 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title,
+          "IMAZINE APP",
           style: TextStyle(
             fontFamily: 'Strasua',
             color: Colors.white
@@ -36,11 +36,22 @@ class DetailScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.white
+                        ),
+                      ),
+                    ),
                     Text(
                       content,
                       style: TextStyle(
-                        color: Colors.grey
+                        color: Colors.white
                       ),
                     ),
                   ],
