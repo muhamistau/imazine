@@ -34,11 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
   final String apiUrl = "http://himatif.fmipa.unpad.ac.id/wp-json/wp/v2/";
   // Empty list for our posts
   List posts;
+  int page = 1;
 
   @override
   void initState() {
     super.initState();
-    this.getPosts();
+    this.getPosts(page);
   }
 
   @override
@@ -105,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(
                   builder: (context) => DetailScreen(
                     title: HtmlUnescape().convert(posts[index]["title"]["rendered"]),
-                    content: HtmlUnescape().convert(posts[index]["excerpt"]["rendered"].replaceAll(RegExp(r'<[^>]*>'), '')),
+                    content: HtmlUnescape().convert(posts[index]["content"]["rendered"].replaceAll(RegExp(r'<[^>]*>'), '')),
                     featuredMedia: featuredMedia,
                   )
                 )
@@ -118,9 +119,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // Function to fetch list of posts
-   Future<String> getPosts() async {
+   Future<String> getPosts(int page) async {
 
-    var res = await http.get(Uri.encodeFull(apiUrl + "posts?_embed"), headers: {"Accept": "application/json"});
+    var res = await http.get(Uri.encodeFull(apiUrl + "posts?_embed&per_page=30&page=" + page.toString()), headers: {"Accept": "application/json"});
 
     // fill our posts list with results and update state
     setState(() {
